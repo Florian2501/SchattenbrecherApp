@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">SchattenbrecherApp</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_talents">Talente</string>
+    <string name="title_fight">Kampf</string>
+    <string name="title_inventory">Invantar</string>
+    <string name="title_notes">Notizen</string>
+
 </resources>
