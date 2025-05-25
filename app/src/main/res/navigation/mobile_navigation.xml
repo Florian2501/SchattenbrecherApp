@@ -27,17 +27,24 @@
         android:id="@+id/navigation_inventory"
         android:name="com.example.schattenbrecherapp.ui.inventory.InventoryFragment"
         android:label="@string/title_inventory"
-        tools:layout="@layout/fragment_inventory_list" >
-        <action
-            android:id="@+id/action_navigation_inventory_to_navigation_home"
-            app:destination="@id/navigation_home" />
-    </fragment>
+        tools:layout="@layout/fragment_inventory_list" />
 
     <fragment
         android:id="@+id/navigation_notes"
         android:name="com.example.schattenbrecherapp.ui.notes.NotesFragment"
         android:label="@string/title_notes"
         tools:layout="@layout/fragment_notes" />
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.example.schattenbrecherapp.ui.settings.SettingsFragment"
+        android:label="@string/action_settings" />
+
+    <fragment
+        android:id="@+id/navigation_statistics"
+        android:name="com.example.schattenbrecherapp.ui.statistics.StatisticsFragment"
+        android:label="@string/title_statistics"
+        tools:layout="@layout/fragment_statistics" />
 
 
 </navigation>

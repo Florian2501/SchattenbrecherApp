@@ -7,10 +7,15 @@
     <string name="title_fight">Kampf</string>
     <string name="title_inventory">Invantar</string>
     <string name="title_notes">Notizen</string>
+    <string name="title_settings">Einstellungen</string>
+    <string name="title_statistics">Statistiken</string>
+
 
     <string name="action_settings">Einstellungen</string>
     <string name="action_statistics">Statistiken</string>
     <string name="action_wiki">Schattenbrecher-Wiki</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="large_text">

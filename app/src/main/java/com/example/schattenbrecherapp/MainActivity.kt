@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -18,6 +19,7 @@ import com.example.schattenbrecherapp.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,14 +31,14 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = binding.navView
 
         //define own toolbar and set it as action bar
-        setSupportActionBar(findViewById(R.id.top_toolbar))
-        val topToolbar = getSupportActionBar()
+        setSupportActionBar(binding.topToolbar)
+        //val topToolbar = getSupportActionBar()
         //for "up" button
         //topToolbar?.setDisplayHomeAsUpEnabled(true)
 
 
         //setup navigation controller for navigation bar
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        navController = findNavController(R.id.nav_host_fragment_activity_main)
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -71,16 +73,30 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_settings -> {
             // User chooses the "Settings" item. Show the app settings UI.
-            Toast.makeText(this, "Settings clicked", Toast.LENGTH_SHORT).show()
-            //return true for showing that it worked out
-            true
+            // Navigate to the settings fragment using its ID from the navigation graph.
+            // Make sure R.id.navigation_settings matches the ID in your navigation graph.
+            try {
+                navController.navigate(R.id.navigation_settings) // <--- NAVIGATION HAPPENS HERE
+            } catch (e: IllegalArgumentException) {
+                // This can happen if the destination ID is not found in the current graph
+                // or if you're trying to navigate to the current destination.
+                Toast.makeText(this, "Could not navigate to settings.", Toast.LENGTH_SHORT).show()
+                // Log.e("NavigationError", "Error navigating to settings", e)
+            }
+            true // Indicate that the event was handled
         }
 
         R.id.action_statistics -> {
             // User chooses the "Statistics" action.
-            Toast.makeText(this, "Statistics clicked", Toast.LENGTH_SHORT).show()
-
-            true
+            try {
+                navController.navigate(R.id.navigation_statistics) // <--- NAVIGATION HAPPENS HERE
+            } catch (e: IllegalArgumentException) {
+                // This can happen if the destination ID is not found in the current graph
+                // or if you're trying to navigate to the current destination.
+                Toast.makeText(this, "Could not navigate to statistics.", Toast.LENGTH_SHORT).show()
+                // Log.e("NavigationError", "Error navigating to statistics", e)
+            }
+            true // Indicate that the event was handled
         }
 
         R.id.action_wiki -> {
