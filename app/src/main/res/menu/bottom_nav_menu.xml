@@ -8,20 +8,20 @@
 
     <item
         android:id="@+id/navigation_dashboard"
-        android:icon="@android:drawable/ic_dialog_info"
+        android:icon="@drawable/baseline_handyman_24"
         android:title="@string/title_talents" />
 
     <item
         android:id="@+id/navigation_notifications"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/outline_crisis_alert_24"
         android:title="@string/title_fight" />
     <item
         android:id="@+id/navigation_inventory"
-        android:icon="@android:drawable/ic_input_get"
+        android:icon="@drawable/outline_business_center_24"
         android:title="@string/title_inventory" />
     <item
         android:id="@+id/navigation_notes"
-        android:icon="@android:drawable/ic_menu_agenda"
+        android:icon="@drawable/outline_auto_stories_24"
         android:title="@string/title_notes" />
 
 </menu>
