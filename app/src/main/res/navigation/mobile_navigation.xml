@@ -12,14 +12,32 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.schattenbrecherapp.ui.dashboard.DashboardFragment"
+        android:id="@+id/navigation_talents"
+        android:name="com.example.schattenbrecherapp.ui.talents.TalentsFragment"
         android:label="@string/title_talents"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_talents" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.schattenbrecherapp.ui.notifications.NotificationsFragment"
+        android:id="@+id/navigation_fight"
+        android:name="com.example.schattenbrecherapp.ui.fight.FightFragment"
         android:label="@string/title_fight"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_fight" />
+
+    <fragment
+        android:id="@+id/navigation_inventory"
+        android:name="com.example.schattenbrecherapp.ui.inventory.InventoryFragment"
+        android:label="@string/title_inventory"
+        tools:layout="@layout/fragment_inventory_list" >
+        <action
+            android:id="@+id/action_navigation_inventory_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_notes"
+        android:name="com.example.schattenbrecherapp.ui.notes.NotesFragment"
+        android:label="@string/title_notes"
+        tools:layout="@layout/fragment_notes" />
+
+
 </navigation>

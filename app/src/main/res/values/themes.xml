@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.SchattenbrecherApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.SchattenbrecherApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/grey</item>
         <item name="colorPrimaryVariant">@color/dark_grey</item>
@@ -9,8 +9,38 @@
         <item name="colorSecondary">@color/yellow</item>
         <item name="colorSecondaryVariant">@color/white</item>
         <item name="colorOnSecondary">@color/black</item>
+        <!-- General text color -->
+        <item name="android:textColor">@color/yellow</item>
+
+
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorSecondary</item>
-        <!-- Customize your theme here. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+
+        <!-- Makes the background in general grey as default but can be overwritten e.g. in the xml -->
+        <item name="android:windowBackground">@color/grey</item>"
+
+        <!-- sets the color of control elements like the overflow menu icon (three dots) -->
+        <item name="colorControlNormal">@color/yellow</item>
+
+
+        <!-- Define a custom popup/dropdown menu style -->
+        <item name="android:popupMenuStyle">@style/SchattenbrecherPopupMenu</item>
+        <item name="popupMenuStyle">@style/SchattenbrecherPopupMenu</item> <!-- For AppCompat (covers more cases, especially with MaterialComponents) -->
+
+        <item name="android:popupWindowStyle">@style/SchattenbrecherPopupMenu</item>
+        <item name="popupWindowStyle">@style/SchattenbrecherPopupMenu</item> <!-- AppCompat/MDC version -->
+
+        <item name="android:dropDownListViewStyle">@style/SchattenbrecherPopupMenu</item>
+        <item name="dropDownListViewStyle">@style/SchattenbrecherPopupMenu</item> <!-- AppCompat/MDC version -->
+
+
     </style>
+
+    <!-- Custom PopupMenu style -->
+    <style name="SchattenbrecherPopupMenu" parent="Widget.MaterialComponents.PopupMenu">
+        <!-- changes color of popup menu -->
+        <item name="android:background">@color/dark_grey</item>
+
+    </style>
+
 </resources>
