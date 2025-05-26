@@ -2,6 +2,10 @@ package com.example.schattenbrecherapp
 
 data class Character(val filePath: String) {
     val characterName: String = "Quentin Solus von Farenth"
+    val currentHealthPoints: Int = 80
+    val currentEhremPoints: Int = 7
+    val currentMentalHealthPoints: Int = 13
+
 
     // this should come from a character file in the real app
     val attributesList = mutableMapOf<String, Int>(
