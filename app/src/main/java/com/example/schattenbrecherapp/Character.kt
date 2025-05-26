@@ -1,7 +1,5 @@
 package com.example.schattenbrecherapp
 
-import com.example.schattenbrecherapp.ui.Talent
-
 data class Character(val filePath: String) {
     val characterName: String = "Quentin Solus von Farenth"
 
