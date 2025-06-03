@@ -10,4 +10,6 @@ class HomeViewModel : ViewModel() {
         value = "This is home Fragment"
     }
     val text_test: LiveData<String> = _text
+
+
 }

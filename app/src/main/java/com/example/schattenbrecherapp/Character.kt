@@ -1,6 +1,6 @@
 package com.example.schattenbrecherapp
 
-data class Character(val filePath: String) {
+public data class Character(val filePath: String) {
     val characterName: String = "Quentin Solus von Farenth"
     val currentHealthPoints: Int = 80
     val currentEhremPoints: Int = 7
