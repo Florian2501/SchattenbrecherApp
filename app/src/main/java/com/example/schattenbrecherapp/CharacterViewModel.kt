@@ -17,16 +17,20 @@ class CharacterViewModel : ViewModel() {
 
     // 2. Public LiveData that can only be observed from outside by fragments or activities
     // public available and can not be changed from outside
-    val selectedcharacter: LiveData<Character?> = _selectedCharacter
+    val selectedCharacter: LiveData<Character?> = _selectedCharacter
 
+    // live data for showing if the character is loading from file or saving to file
     private val _isLoading = MutableLiveData<Boolean>(false)
     val isLoading: LiveData<Boolean> = _isLoading
-
-    private val characterRepository = CharacterRepository
 
     // LiveData for Toast messages (using an Event wrapper) see class Event.kt
     private val _toastMessage = MutableLiveData<Event<String>>()
     val toastMessage: LiveData<Event<String>> = _toastMessage
+
+    // object from where the character gets loaded or saved
+    private val characterRepository = CharacterRepository
+
+
 
     fun loadCharacter(characterFilePath: String) {
         if (_selectedCharacter.value != null && _selectedCharacter.value?.filePath == characterFilePath) {

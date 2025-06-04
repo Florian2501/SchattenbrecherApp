@@ -8,8 +8,10 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -22,6 +24,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+
+    private val characterViewModel: CharacterViewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +64,9 @@ class MainActivity : AppCompatActivity() {
         //actionBar?.setTitle("uhfosef")
 
         navView.setupWithNavController(navController)
+
+        // init loading of character here -> needs to be switched to loading and selection screen later
+        characterViewModel.loadCharacter("file:///android_asset/character_quentin.json")
     }
 
     // need to inflate the top toolbar with the self created menu
