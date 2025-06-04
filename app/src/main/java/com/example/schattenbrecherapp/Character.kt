@@ -1,35 +1,60 @@
 package com.example.schattenbrecherapp
 
+import android.view.WindowInsets.Side
+
+public enum class MainAttribute {
+    STÄRKE,
+    AUSDAUER,
+    CHARME,
+    INTELLIGENZ,
+    BEWEGLICHKEIT,
+    WAHRNEHMUNG,
+    GLÜCK,
+    MENTALE_BELASTBARKEIT
+}
+
+public enum class SideAttribute {
+    NAHKAMPF,
+    FERNKAMPF,
+    RÜSTUNGSWERT,
+    PARADE,
+    AUSWEICHEN,
+    INITIATIVE,
+    EHREM,
+    GEISTIGE_GESUNDHEIT,
+    LEBENSENERGIE
+}
+
 public data class Character(val filePath: String) {
     val characterName: String = "Quentin Solus von Farenth"
     val currentHealthPoints: Int = 80
     val currentEhremPoints: Int = 7
     val currentMentalHealthPoints: Int = 13
 
-
     // this should come from a character file in the real app
-    val attributesList = mutableMapOf<String, Int>(
-        "Stärke" to 9,
-        "Ausdauer" to 10,
-        "Charme" to 8,
-        "Intelligenz" to 14,
-        "Beweglichkeit" to 10,
-        "Wahrnehmung" to 12,
-        "Glück" to 7,
-        "Mentale Belastbarkeit" to 13
+    val attributesList = mutableMapOf<MainAttribute, Int>(
+        MainAttribute.STÄRKE to 9,
+        MainAttribute.AUSDAUER to 10,
+        MainAttribute.CHARME to 8,
+        MainAttribute.INTELLIGENZ to 14,
+        MainAttribute.BEWEGLICHKEIT to 10,
+        MainAttribute.WAHRNEHMUNG to 12,
+        MainAttribute.GLÜCK to 7,
+        MainAttribute.MENTALE_BELASTBARKEIT to 13
     )
 
+
     // side attributes get calculated automatically based on the attributes
-    val sideAttributesList = mutableMapOf<String, Int>(
-        "Nahkampf" to ((7 * attributesList["Stärke"]!! + 3 * attributesList["Ausdauer"]!!) / 10),
-        "Fernkampf" to ((7 * attributesList["Wahrnehmung"]!! + 3 * attributesList["Glück"]!!) / 10),
-        "Rüstungswert" to ((4 * attributesList["Beweglichkeit"]!! + 4 * attributesList["Wahrnehmung"]!! + 2 * attributesList["Glück"]!!) / 10),
-        "Parade" to ((5 * attributesList["Stärke"]!! + 3 * attributesList["Ausdauer"]!! + 2 * attributesList["Mentale Belastbarkeit"]!!) / 2),
-        "Ausweichen" to ((6 * attributesList["Beweglichkeit"]!! + 4 * attributesList["Wahrnehmung"]!!) / 10),
-        "Initiative" to ((10 * attributesList["Ausdauer"]!! + 10 * attributesList["Beweglichkeit"]!! - 5 * attributesList["Stärke"]!!) / 10),
-        "Ehrem" to (6 * attributesList["Glück"]!! + 2 * attributesList["Mentale Belastbarkeit"]!! + 2 * attributesList["Wahrnehmung"]!!),
-        "Geistige Gesundheit" to (10 * attributesList["Mentale Belastbarkeit"]!! + 5 * attributesList["Intelligenz"]!!),
-        "Lebensenergie" to (10 * attributesList["Stärke"]!! + 5 * attributesList["Ausdauer"]!!)
+    val sideAttributesList = mutableMapOf<SideAttribute, Int>(
+        SideAttribute.NAHKAMPF to ((7 * attributesList[MainAttribute.STÄRKE]!! + 3 * attributesList[MainAttribute.AUSDAUER]!!) / 10),
+        SideAttribute.FERNKAMPF to ((7 * attributesList[MainAttribute.WAHRNEHMUNG]!! + 3 * attributesList[MainAttribute.GLÜCK]!!) / 10),
+        SideAttribute.RÜSTUNGSWERT to ((4 * attributesList[MainAttribute.BEWEGLICHKEIT]!! + 4 * attributesList[MainAttribute.WAHRNEHMUNG]!! + 2 * attributesList[MainAttribute.GLÜCK]!!) / 10),
+        SideAttribute.PARADE to ((5 * attributesList[MainAttribute.STÄRKE]!! + 3 * attributesList[MainAttribute.AUSDAUER]!! + 2 * attributesList[MainAttribute.MENTALE_BELASTBARKEIT]!!) / 2),
+        SideAttribute.AUSWEICHEN to ((6 * attributesList[MainAttribute.BEWEGLICHKEIT]!! + 4 * attributesList[MainAttribute.WAHRNEHMUNG]!!) / 10),
+        SideAttribute.INITIATIVE to ((10 * attributesList[MainAttribute.AUSDAUER]!! + 10 * attributesList[MainAttribute.BEWEGLICHKEIT]!! - 5 * attributesList[MainAttribute.STÄRKE]!!) / 10),
+        SideAttribute.EHREM to (6 * attributesList[MainAttribute.GLÜCK]!! + 2 * attributesList[MainAttribute.MENTALE_BELASTBARKEIT]!! + 2 * attributesList[MainAttribute.WAHRNEHMUNG]!!),
+        SideAttribute.GEISTIGE_GESUNDHEIT to (10 * attributesList[MainAttribute.MENTALE_BELASTBARKEIT]!! + 5 * attributesList[MainAttribute.INTELLIGENZ]!!),
+        SideAttribute.LEBENSENERGIE to (10 * attributesList[MainAttribute.STÄRKE]!! + 5 * attributesList[MainAttribute.AUSDAUER]!!)
     )
 
     // this should come from a character file in the real app
@@ -51,50 +76,36 @@ public data class Character(val filePath: String) {
 
     val talentList = mutableMapOf<String, MutableList<Talent>>(
         "Körperliches" to mutableListOf<Talent>(
-            Talent("Tragen/Ziehen", arrayListOf("Stärke", "Stärke", "Ausdauer"), 0),
-            Talent("Schmerzen ertragen", arrayListOf("Stärke", "Stärke", "Glück"), 0)
+            Talent("Tragen/Ziehen", arrayListOf(MainAttribute.STÄRKE, MainAttribute.STÄRKE, MainAttribute.AUSDAUER), 0),
+            Talent("Schmerzen ertragen", arrayListOf(MainAttribute.STÄRKE, MainAttribute.STÄRKE, MainAttribute.GLÜCK), 0)
             // Todo fill the list
         ),
 
         "Handwerkliches" to mutableListOf<Talent>(
-            Talent("Tragen/Ziehen", arrayListOf("Stärke", "Stärke", "Ausdauer"), 0),
-            Talent("Schmerzen ertragen", arrayListOf("Stärke", "Stärke", "Glück"), 0)
             // Todo fill the list
         ),
 
         "Soziales" to mutableListOf<Talent>(
-            Talent("Tragen/Ziehen", arrayListOf("Stärke", "Stärke", "Ausdauer"), 0),
-            Talent("Schmerzen ertragen", arrayListOf("Stärke", "Stärke", "Glück"), 0)
             // Todo fill the list
         ),
 
         "Wissen" to mutableListOf<Talent>(
-            Talent("Tragen/Ziehen", arrayListOf("Stärke", "Stärke", "Ausdauer"), 0),
-            Talent("Schmerzen ertragen", arrayListOf("Stärke", "Stärke", "Glück"), 0)
             // Todo fill the list
         ),
 
         "Talente" to mutableListOf<Talent>(
-            Talent("Tragen/Ziehen", arrayListOf("Stärke", "Stärke", "Ausdauer"), 0),
-            Talent("Schmerzen ertragen", arrayListOf("Stärke", "Stärke", "Glück"), 0)
             // Todo fill the list
         ),
 
         "Gaunerei" to mutableListOf<Talent>(
-            Talent("Tragen/Ziehen", arrayListOf("Stärke", "Stärke", "Ausdauer"), 0),
-            Talent("Schmerzen ertragen", arrayListOf("Stärke", "Stärke", "Glück"), 0)
             // Todo fill the list
         ),
 
         "Überleben" to mutableListOf<Talent>(
-            Talent("Tragen/Ziehen", arrayListOf("Stärke", "Stärke", "Ausdauer"), 0),
-            Talent("Schmerzen ertragen", arrayListOf("Stärke", "Stärke", "Glück"), 0)
             // Todo fill the list
         ),
 
         "Magisches" to mutableListOf<Talent>(
-            Talent("Tragen/Ziehen", arrayListOf("Stärke", "Stärke", "Ausdauer"), 0),
-            Talent("Schmerzen ertragen", arrayListOf("Stärke", "Stärke", "Glück"), 0)
             // Todo fill the list
         )
     )

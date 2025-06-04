@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.example.schattenbrecherapp.Character
 import com.example.schattenbrecherapp.CharacterViewModel
+import com.example.schattenbrecherapp.SideAttribute
 import com.example.schattenbrecherapp.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -23,7 +24,6 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val characterViewModel: CharacterViewModel by activityViewModels()
-    private var selectedCharacter: Character? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,28 +54,29 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Charakter laden geht noch nicht so richtig -> Probleme wann wo deklarieren muss für Zugriff und damit initialisiert ist
-        selectedCharacter = characterViewModel.selectedCharacter.value
-
-        // ... other observers ...
-
-        if(selectedCharacter == null){
-            Toast.makeText(requireContext(), "No character selected", Toast.LENGTH_SHORT).show()
-        }
-        else{
-            // init whole ui with the selected character
-            binding.textCharacterName.text = selectedCharacter!!.characterName
-            binding.healthTextView.text = "HP: ${selectedCharacter!!.currentHealthPoints}/${selectedCharacter!!.sideAttributesList["Lebensenergie"]}"
-
-        }
-
-
-
-        // won't happen probably
+        // set ui and observe the characterViewModel for updates of the values
         characterViewModel.selectedCharacter.observe(viewLifecycleOwner) { character ->
             if (character != null) {
                 // Use the character data to update your Fragment's UI
+
+                //character name
                 binding.textCharacterName.text = character.characterName
+
+                //health bar
+                binding.healthTextView.text = "LE: ${character.currentHealthPoints}/${character.sideAttributesList[SideAttribute.LEBENSENERGIE]}"
+                binding.healthProgressBar.max = character.sideAttributesList[SideAttribute.LEBENSENERGIE]!!
+                binding.healthProgressBar.progress = character.currentHealthPoints
+
+                //ehrem
+                binding.ehremTextView.text = "EH: ${character.currentEhremPoints}/${character.sideAttributesList[SideAttribute.EHREM]}"
+                binding.ehremProgressBar.max = character.sideAttributesList[SideAttribute.EHREM]!!
+                binding.ehremProgressBar.progress = character.currentEhremPoints
+
+                //Geistige Gesundheit - mental health
+                binding.mentalHealthTextView.text = "GG: ${character.currentMentalHealthPoints}/${character.sideAttributesList[SideAttribute.GEISTIGE_GESUNDHEIT]}"
+                binding.mentalHealthProgressBar.max = character.sideAttributesList[SideAttribute.GEISTIGE_GESUNDHEIT]!!
+                binding.mentalHealthProgressBar.progress = character.currentMentalHealthPoints
+
                 // ... update health bars, stats, lists, etc.
             } else {
                 // Handle case where character is not loaded (e.g., show placeholder, navigate away)
