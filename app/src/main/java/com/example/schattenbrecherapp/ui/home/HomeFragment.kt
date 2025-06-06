@@ -12,8 +12,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.example.schattenbrecherapp.Character
 import com.example.schattenbrecherapp.CharacterViewModel
+import com.example.schattenbrecherapp.MainAttribute
 import com.example.schattenbrecherapp.SideAttribute
 import com.example.schattenbrecherapp.databinding.FragmentHomeBinding
+import com.example.schattenbrecherapp.ui.dialogs.UpdateHealthDialogFragment
 
 class HomeFragment : Fragment() {
 
@@ -63,18 +65,18 @@ class HomeFragment : Fragment() {
                 binding.textCharacterName.text = character.characterName
 
                 //health bar
-                binding.healthTextView.text = "LE: ${character.currentHealthPoints}/${character.sideAttributesList[SideAttribute.LEBENSENERGIE]}"
-                binding.healthProgressBar.max = character.sideAttributesList[SideAttribute.LEBENSENERGIE]!!
+                binding.healthTextView.text = "LE: ${character.currentHealthPoints}/${character.getSideAttributesList()[SideAttribute.LEBENSENERGIE]}"
+                binding.healthProgressBar.max = character.getSideAttributesList()[SideAttribute.LEBENSENERGIE]!!
                 binding.healthProgressBar.progress = character.currentHealthPoints
 
                 //ehrem
-                binding.ehremTextView.text = "EH: ${character.currentEhremPoints}/${character.sideAttributesList[SideAttribute.EHREM]}"
-                binding.ehremProgressBar.max = character.sideAttributesList[SideAttribute.EHREM]!!
+                binding.ehremTextView.text = "EH: ${character.currentEhremPoints}/${character.getSideAttributesList()[SideAttribute.EHREM]}"
+                binding.ehremProgressBar.max = character.getSideAttributesList()[SideAttribute.EHREM]!!
                 binding.ehremProgressBar.progress = character.currentEhremPoints
 
                 //Geistige Gesundheit - mental health
-                binding.mentalHealthTextView.text = "GG: ${character.currentMentalHealthPoints}/${character.sideAttributesList[SideAttribute.GEISTIGE_GESUNDHEIT]}"
-                binding.mentalHealthProgressBar.max = character.sideAttributesList[SideAttribute.GEISTIGE_GESUNDHEIT]!!
+                binding.mentalHealthTextView.text = "GG: ${character.currentMentalHealthPoints}/${character.getSideAttributesList()[SideAttribute.GEISTIGE_GESUNDHEIT]}"
+                binding.mentalHealthProgressBar.max = character.getSideAttributesList()[SideAttribute.GEISTIGE_GESUNDHEIT]!!
                 binding.mentalHealthProgressBar.progress = character.currentMentalHealthPoints
 
                 // ... update health bars, stats, lists, etc.
@@ -96,5 +98,32 @@ class HomeFragment : Fragment() {
                 Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
             }
         }
+
+        // set onClickListener for UI elements
+
+        binding.healthTextView.setOnClickListener { updateHealth(it) }
+        binding.healthProgressBar.setOnClickListener { updateHealth(it) }
+
+    }
+
+    private fun updateHealth (clickedView: View) {
+//        characterViewModel.updateCharacter { currentCharacterInViewModel ->
+//            val currentHealthPoints = currentCharacterInViewModel.currentHealthPoints
+//            val currentMaxHealthPoints = currentCharacterInViewModel.getSideAttributesList()[SideAttribute.LEBENSENERGIE]!!
+//            val changeInHealthPoints = 10
+//            val updatedHealthPoints = if (currentHealthPoints + changeInHealthPoints >= currentMaxHealthPoints)
+//                                            currentMaxHealthPoints else currentHealthPoints + changeInHealthPoints
+//
+//            //for testing purpose -> this is how to change a main attribute
+//            //val mainAttributeList = currentCharacterInViewModel.mainAttributesList
+//            //val mutableMainAttributeList = mainAttributeList.toMutableMap()
+//            //mutableMainAttributeList[MainAttribute.STÄRKE] = 11
+//
+//            currentCharacterInViewModel.copy(currentHealthPoints = updatedHealthPoints)
+//        }
+
+        val dialog = UpdateHealthDialogFragment.newInstance()
+        // Use childFragmentManager for dialogs shown from within a Fragment for better lifecycle management
+        dialog.show(childFragmentManager, UpdateHealthDialogFragment.TAG)
     }
 }

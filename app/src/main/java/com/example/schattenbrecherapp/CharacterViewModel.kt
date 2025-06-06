@@ -31,7 +31,6 @@ class CharacterViewModel : ViewModel() {
     private val characterRepository = CharacterRepository
 
 
-
     fun loadCharacter(characterFilePath: String) {
         if (_selectedCharacter.value != null && _selectedCharacter.value?.filePath == characterFilePath) {
             // Character already loaded and is the same, no need to reload
@@ -42,7 +41,7 @@ class CharacterViewModel : ViewModel() {
         viewModelScope.launch {
             _isLoading.value = true
             try {
-                // Replace with the actual character loading logic
+                // call repository function to load the character from file
                 val character = characterRepository.loadCharacterFromFile(characterFilePath)
                 _selectedCharacter.value = character
             } catch (e: Exception) {
@@ -59,6 +58,45 @@ class CharacterViewModel : ViewModel() {
 
     fun clearCharacter() {
         _selectedCharacter.value = null
+    }
+
+    fun saveCharacter() {
+
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                //call repository function to save the currently used character to file
+                characterRepository.saveCharacterToFile(_selectedCharacter.value!!)
+            } catch (e: Exception) {
+                // Handle error (e.g., post an error state to LiveData)
+                Log.e("CharacterViewModel", "Error saving character", e)
+                _toastMessage.value = Event("Error saving character: ${e.message}")
+
+            } finally {
+                _isLoading.value = false
+            }
+        }
+
+    }
+
+    /**
+     * Generic function to update the character.
+     * The 'updater' lambda receives the current character and should return the modified character.
+     */
+    fun updateCharacter(updater: (Character) -> Character) { // 1. Function Definition
+        _selectedCharacter.value?.let { currentCharacter -> // 2. Get current character safely
+            // 3. Execute the lambda, passing the current character to it
+            // this is to make sure the current value of character is changed and not
+            // another class or so updated it in the mean time
+            val updatedCharacter: Character = updater(currentCharacter)
+
+            // 4. Update LiveData only if the character actually changed
+            if (updatedCharacter != currentCharacter) {
+                _selectedCharacter.value = updatedCharacter
+                // Consider saving the character to your repository here if needed
+                // lets see if this takes too much time per saving
+            }
+        }
     }
 
     // You can add other methods here to modify character data if needed,
